@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	
+<head th:replace="fragments :: page_head('Produits - Immoben Admin', 'none')" >
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+<div class="container-fluid">
+
+	<div th:replace="navigation :: menu"></div>
+	
+	<h2>Gestion des annonces</h2>
+	
+	<div>
+		<h4>
+			<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Assistant')">
+				<a th:href="@{/products/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+				<a th:href="@{/products/new}"> Mettre une nouvelle annonce en ligne</a>
+			</th:block>
+		</h4>
+						
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+	</div>
+	
+	<div>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
+			<form th:action="@{/products/page/1}"  class="form-inline text-white m-3" id="searchForm">
+				<input type="hidden" name="sortField" th:value="${sortField}" />
+				<input type="hidden" name="sortDir" th:value="${sortDir}" />
+				
+				<div class="full-header-details mb-2">
+					<div class="row mb-2">
+						<div class="col-3">
+							Catégorie: 
+						</div>
+						<div class="col-9">
+							<select class="form-control" name="categoryId" id="dropdownCategory">
+								<option value="0">Toutes les catégories</option>
+								
+								<th:block th:each="cat : ${listCategories}">
+								<option th:value="${cat.id}" th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
+								</th:block>
+							</select>
+						</div>					
+					</div>
+					
+					
+					<div class="row mb-2">
+						<div class="col-3">
+							Ville: 
+						</div>
+						<div class="col-9">	
+							<select class="form-control" name="city" id="dropdownCity">
+								<option value="0">Toutes les villes</option>
+						
+								<th:block th:each="cit : ${listCities}">
+								<option th:value="${cit.id}" th:selected="(${cityId} == ${cit.id})">[[${cit.name}]]</option>
+								</th:block>
+								
+							</select>
+						</div>					
+					</div>
+					
+					<div class="row mb-2">
+						<div class="col-3">
+							Quartier:
+						</div>
+						<div class="col-9">
+							<input type="search" name="keyword" th:value="${keyword}" class="form-control"/>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-4">
+							<button type="submit" class="btn btn-primary">
+								Chercher
+							</button>
+						</div>
+						<div class="col-4">
+							<button type="button" class="btn btn-danger" onclick="clearFilter()">
+								Annuler
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>	
+				
+			
+			<form th:action="@{/products/page/1}"  class="form-inline text-white m-3" id="searchForm">
+				<input type="hidden" name="sortField" th:value="${sortField}" />
+				<input type="hidden" name="sortDir" th:value="${sortDir}" />
+			
+				<div class= "less-header-details mb-2">
+					Catégorie:&nbsp;
+					<select class="form-control" name="categoryId" id="dropdownCategory">
+						<option value="0">Toutes les catégories</option>
+				
+						<th:block th:each="cat : ${listCategories}">
+						<option th:value="${cat.id}" th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
+						</th:block>
+					</select>
+					
+					&nbsp;&nbsp;Ville:&nbsp;
+					<select class="form-control" name="city" id="dropdownCity">
+						<option value="0">Toutes les villes</option>
+				
+						<th:block th:each="cit : ${listCities}">
+						<option th:value="${cit.id}" th:selected="(${cityId} == ${cit.id})">[[${cit.name}]]</option>
+						</th:block>
+						
+					</select>				
+									
+					&nbsp;&nbsp;Quartier:&nbsp;
+					<input type="search" name="keyword" th:value="${keyword}" class="form-control"/>
+					&nbsp;&nbsp;
+					<button type="submit" class="btn btn-primary">
+						Chercher
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger" onclick="clearFilter()">
+						Annuler
+					</button>
+				</div>
+			</form>
+		</nav>		
+	</div>	
+		
+	
+	<!-- <div class="full-details mb-5"> -->
+		<table class="table table-bordered table-striped table-hover table-responsive-xxl">
+			<thead class="thead-dark">
+				<tr>
+					<th class="col-1 hideable-column" > 
+						<th th:replace="fragments :: column_link('id', 'ID', 'tag')" />
+					</th>
+					
+					<th>Image</th>
+					
+					<th class="col-1 hideable-column" > 
+						<th th:replace="fragments :: column_link('createdTime', 'Date(création)', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column" > 
+						<th th:replace="fragments :: column_link('updatedTime', 'Date(modif)', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column" > 
+						<th th:replace="fragments :: column_link('city', 'Ville', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('category', 'Catégorie', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('district', 'Quartier', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('lounge', 'Salon', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('room', 'Chambre', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('kitchen', 'Cuisine', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('shower', 'Douche', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('toilet', 'Toilette', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('area', 'Superficie', 'tag')" />
+					</th>
+					
+					<th class="col-1 hideable-column"> 
+						<th th:replace="fragments :: column_link('price', 'Montant', 'tag')" />
+					</th>
+					
+					<th style="min-width: 105px;">Téléphone</th>
+					<th style="max-width: 100px;">Propriétaire</th>
+					<th></th>
+				</tr>								
+			</thead>
+			
+			<tbody>
+				<tr th:each="product : ${listProducts}">
+					<td class="col-1">[[${product.id}]]</td>
+					<td class="col-1">
+						<img th:src="@{${product.mainImagePath}}" class="img-fluid"/>
+					</td>
+					<td class="col-1">[[${product.createdTime}]]</td>
+					<td class="col-1">[[${product.updatedTime}]]</td>
+					<td class="col-1">[[${product.city}]]</td>
+					<td class="col-1">[[${product.category}]]</td>
+					<td class="col-1">[[${product.district}]]</td>
+					<td class="col-1">[[${product.lounge}]]</td>
+					<td class="col-1">[[${product.room}]]</td>
+					<td class="col-1">[[${product.kitchen}]]</td>
+					<td class="col-1">[[${product.shower}]]</td>
+					<td class="col-1">[[${product.toilet}]]</td>
+					<td class="col-1">[[${product.area}]]</td>
+					<td class="col-1">[[${product.price}]]</td>
+					<td class="col-1">[[${product.phoneNumber}]]</td>
+					<td class="col-1" th:field= "*{customer}" th:href="@{/account}" id="customer"
+					sec:authentication="principal.fullName" value="principal.fullName">[[${product.customer}]]</td>
+										
+					<td class="col-1 text-center p-2" style="white-space: nowrap">						
+						<a class="fas fa-file-alt fa-2x icon-blue link-detail"
+							th:href="@{'/products/detail/' + ${product.id}}"
+							title="Voir les détails de l'annonce"
+							></a>
+						&nbsp;
+						<!-- <th:block sec:authorize="hasAnyAuthority('Admin')"> -->
+							<div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})" ></div>
+							&nbsp;
+							<div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" ></div>
+							&nbsp; 
+							<div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" ></div>
+						<!-- </th:block>	 -->						
+					</td>									
+				</tr>
+			</tbody>
+		</table>
+	<!-- </div> -->
+		
+	<div th:replace="modal_fragments :: confirm_modal" ></div>
+	
+	<div class="modal fade" id="detailModal">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+	<div class="top_pagination"></div>
+	<div th:replace="fragments :: pagination('products')"></div>					
+	
+	<div th:replace="modal_fragments :: confirm_modal"  ></div>
+	
+	<div th:replace="fragments :: footer"></div>
+	
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/products}]]";
+
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'product');
+		});
+		
+		$(".link-detail").on("click", function(e) {
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+		
+		$("#dropdownCategory").on("change", function() {
+			$("#searchForm").submit();
+		});
+		
+		$("#dropdownCity").on("change", function() {
+			$("#searchForm").submit();
+		});
+	});
+</script>
+</body>
+</html>
