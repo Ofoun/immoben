@@ -17,16 +17,26 @@
 
 <th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
 	<a class="text-white"
-		th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
+		th:href="@{${moduleURL} + '/page/' 
+		  + ${currentPage} + '?sortField=' 
+		  + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} 
+		  + ${keyword != null ? '&keyword=' + keyword : ''} 
+		  + ${categoryId != null ? '&categoryId=' + categoryId : ''} 
+		  + ${cityId != null ? '&cityId=' + cityId : ''}
+	  }">
 		[[${columnLabel}]]
 	</a>								
 	<span th:if="${sortField == fieldName}"
-		th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>					
+		th:class="${sortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>					
 </th>
+
+
 	
 <a th:fragment="page_link(moduleURL, pageNum, label)"
 	class="page-link" 
-	th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+	th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+	[[${label}]]
+</a>
 
 		
 <div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">
@@ -63,6 +73,28 @@
 		</nav>	
 	</div>	
 </div>	
+    
+    
+<div th:fragment="search_form_and_message()" class="searchTemplate ">
+    
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
+      <form th:action="@{${moduleURL} + '/page/1'}" class="form-inline text-white m-1">
+        <input type="hidden" name="sortField" th:value="${sortField}" />
+        <input type="hidden" name="sortDir" th:value="${sortDir}" />
+        Recherche: &nbsp;
+        <input type="search" class="form-control mr-sm-1" name="keyword" th:value="${keyword}" 
+            placeholder="écrivez ici" required />
+        <button type="submit" class="btn btn-success m-1" value="Chercher" >Chercher</button>
+
+        <button type="button" class="btn btn-danger" value="Annuler" onclick="clearFilter()" >Annuler</button>
+
+      </form>
+    </nav>
+</div>
 
 <div th:fragment="modal_dialog" class="modal fade text-center" id="modalDialog">
 	<div class="modal-dialog">
@@ -114,6 +146,52 @@
 <div th:fragment="currency_input(amount)" th:remove="tag">
 	<input type="text" readonly class="form-control" th:value="${(CURRENCY_SYMBOL_POSITION == 'Before price' ? CURRENCY_SYMBOL : '') + #numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE) + (CURRENCY_SYMBOL_POSITION == 'After price' ? CURRENCY_SYMBOL : '')}">
 </div>	
+
+
+
+<div th:fragment="search_nav_category_city_district" th:remove="tag">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
+<!--         <form th:action="@{/index/page/1}"  -->
+        <form th:action="@{/search_category_city_district}"  method="get"
+            class="form-inline text-white m-3" id="searchForm">
+
+            <div class="header-details mb-2">
+                Catégorie:&nbsp; 
+                <select class="form-control" name="categoryId"
+                    id="dropdownCategory">
+                    <option value="0">Toutes les catégories</option>
+
+                    <th:block th:each="cat : ${listCategories}">
+                        <option th:value="${cat.id}"
+                            th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
+                    </th:block>
+                </select> 
+                &nbsp;&nbsp;Ville:&nbsp; 
+                <select class="form-control" name="city"
+                    id="dropdownCity">
+                    <option value="0">Toutes les villes</option>
+
+                    <th:block th:each="cit : ${listCities}">
+                        <option th:value="${cit.id}"
+                            th:selected="(${cityId} == ${cit.id})">[[${cit.name}]]</option>
+                    </th:block>
+
+                </select>
+                &nbsp;&nbsp;Quartier:&nbsp; 
+                <input type="search" name="keyword"
+                    th:value="${keyword}" class="form-control quartier"
+                    placeholder="Tous les quartiers" required /> 
+                &nbsp;&nbsp;
+                <!-- <button type="submit" class="btn btn-primary">Chercher</button> -->
+                    <input type="submit" value="Chercher" class="btn btn-primary" />
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-danger"
+                    onclick="clearFilter()">Annuler</button>
+            </div>
+        </form>       
+    </nav>
+</div>
+
 	
 </body>
 </html>

@@ -23,101 +23,95 @@
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" data-toggle="tab" href="#details" role="tab">Détails</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" data-toggle="tab" href="#shipping" role="tab">Expédition</a>
-	  </li>		  
+	  </li>	  
 	</ul>
 	
 	<div class="tab-content">
 	  <div class="tab-pane active p-3" id="overview" role="tabpanel">
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Produit:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Produit:</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.name}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Alias:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Alias:</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.alias}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Marque:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Marque:</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.city.name}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Catégorie:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Catégorie:</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.category.name}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Annonceur:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Annonceur:</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.phoneNumber}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Status:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Status:</label>
+			<div class="col-sm-9">
 				<input type="checkbox" th:checked="${product.enabled}" onclick="" />
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Provision en stock:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Provision en stock:</label>
+			<div class="col-sm-9">
 				<input type="checkbox" th:checked="${product.inStock}" onclick="" />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Frais:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Frais:</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.cost}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Prix:</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Prix:</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.price}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Pourcentage de remise :</label>
-			<div class="col-sm-10">
+			<label class="col-sm-3 col-form-label">Pourcentage de remise :</label>
+			<div class="col-sm-9">
 				<input type="text" class="form-control" th:value="${product.discountPercent}" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Heure de mise en ligne :</label>
-			<div class="col-sm-10">
-				<span th:text="${#dates.format(product.updatedTime, 'dd-mm-yyyy HH:mm:ss')}"></span>
+			<label class="col-sm-3 col-form-label">Heure de mise en ligne :</label>
+			<div class="col-sm-9">
+                <span th:text="${#dates.format(product.updatedTime, 'dd-MMM-yyyy  à  HH:mm:ss')}"></span>
 			</div>
 		</div>			  	
 	  </div>
 	  <div class="tab-pane" id="description" role="tabpanel">
-		<div th:replace="products/product_description_read_only :: content"></div>	  
+		<div th:replace="product/product_description_read_only :: content"></div>	  
 	  </div>
 	  <div class="tab-pane" id="images" role="tabpanel">
-		<div th:replace="products/product_images_read_only :: content"></div>
+		<div th:replace="product/product_images_read_only :: content"></div>
 	  </div>
 	  <div class="tab-pane p-3" id="details" role="tabpanel">
-		<div th:replace="products/product_details_read_only :: content"></div>
-	  </div>
-	  <div class="tab-pane p-3" id="shipping" role="tabpanel">
-		<div th:replace="products/product_shipping_read_only :: content"></div>
+		<div th:replace="product/product_details_read_only :: content"></div>
 	  </div>
 	</div>
 </div>

@@ -15,9 +15,9 @@ public interface CityRepository extends SearchRepository<City, Integer> {
 	
 	public City findByName(String name);
 	
-	@Query("SELECT b FROM City b WHERE b.name LIKE %?1%")
+	@Query("SELECT c FROM City c WHERE c.name LIKE %?1%")
 	public Page<City> findAll(String keyword, Pageable pageable);
 	
-	@Query("SELECT NEW City(b.id, b.name) FROM City b ORDER BY b.name ASC")
+	@Query("SELECT NEW City(c.id, c.name) FROM City c ORDER BY c.name ASC")
 	public List<City> findAll();
 }

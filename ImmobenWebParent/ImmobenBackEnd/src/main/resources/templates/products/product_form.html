@@ -13,7 +13,7 @@
 		<h2>Gestion des produits | [[${pageTitle}]]</h2>	
 	</div>
 			
-	<form th:action="@{/products/save}" method="post" onsubmit="return checkUnique(this)"
+	<form th:action="@{/products/save}" method="post" onsubmit="checkUnique(this)"
 		enctype="multipart/form-data"
 		th:object="${product}">
 		<input type="hidden" th:field="*{id}" />

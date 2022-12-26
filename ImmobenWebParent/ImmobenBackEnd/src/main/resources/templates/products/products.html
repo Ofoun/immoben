@@ -26,9 +26,59 @@
 		</div>
 	</div>
 	
+        <div th:replace="fragments :: search_form_and_message" ></div>  
+    
+	
 	<div>
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
-			<form th:action="@{/products/page/1}"  class="form-inline text-white m-3" id="searchForm">
+        
+        <div th:if="${message != null}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+            
+            <form th:action="@{${moduleURL} + '/page/1'}" class="form-inline text-white m-3" id="searchForm">
+        
+                <input type="hidden" name="sortField" th:value="${sortField}" />
+                <input type="hidden" name="sortDir" th:value="${sortDir}" />
+            
+                <div class= "less-header-details mb-2">
+                    Catégorie:&nbsp;
+                    <select class="form-control" name="categoryId" id="dropdownCategory">
+                        <option value="0">Toutes les catégories</option>
+                
+                        <th:block th:each="cat : ${listCategories}">
+                        <option th:value="${cat.id}" th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
+                        </th:block>
+                    </select>
+                    
+                    &nbsp;&nbsp;Ville:&nbsp;
+                    <select class="form-control" name="cityId" id="dropdownCity">
+                        <option value="0">Toutes les villes</option>
+                
+                        <th:block th:each="cit : ${listCities}">
+                            <option th:value="${cit.id}" th:selected="(${cityId} == ${cit.id})">[[${cit.name}]]</option>
+                        </th:block>
+                        
+                    </select>            
+                                    
+                    &nbsp;&nbsp;Quartier:&nbsp;
+                    <input type="search" name="keyword" th:value="${keyword}" class="form-control"/>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary">
+                        Chercher
+                    </button>
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-danger" onclick="clearFilter()">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+            
+            
+            
+            
+            
+			<form th:action="@{${moduleURL} + '/page/1'}" class="form-inline text-white m-3" id="searchForm">
 				<input type="hidden" name="sortField" th:value="${sortField}" />
 				<input type="hidden" name="sortDir" th:value="${sortDir}" />
 				
@@ -54,7 +104,7 @@
 							Ville: 
 						</div>
 						<div class="col-9">	
-							<select class="form-control" name="city" id="dropdownCity">
+							<select class="form-control" name="cityId" id="dropdownCity">
 								<option value="0">Toutes les villes</option>
 						
 								<th:block th:each="cit : ${listCities}">
@@ -76,7 +126,7 @@
 					<div class="row mb-2">
 						<div class="col-4">
 							<button type="submit" class="btn btn-primary">
-								Chercher
+								Chercherr
 							</button>
 						</div>
 						<div class="col-4">
@@ -87,44 +137,6 @@
 					</div>
 				</div>
 			</form>	
-				
-			
-			<form th:action="@{/products/page/1}"  class="form-inline text-white m-3" id="searchForm">
-				<input type="hidden" name="sortField" th:value="${sortField}" />
-				<input type="hidden" name="sortDir" th:value="${sortDir}" />
-			
-				<div class= "less-header-details mb-2">
-					Catégorie:&nbsp;
-					<select class="form-control" name="categoryId" id="dropdownCategory">
-						<option value="0">Toutes les catégories</option>
-				
-						<th:block th:each="cat : ${listCategories}">
-						<option th:value="${cat.id}" th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
-						</th:block>
-					</select>
-					
-					&nbsp;&nbsp;Ville:&nbsp;
-					<select class="form-control" name="city" id="dropdownCity">
-						<option value="0">Toutes les villes</option>
-				
-						<th:block th:each="cit : ${listCities}">
-						<option th:value="${cit.id}" th:selected="(${cityId} == ${cit.id})">[[${cit.name}]]</option>
-						</th:block>
-						
-					</select>				
-									
-					&nbsp;&nbsp;Quartier:&nbsp;
-					<input type="search" name="keyword" th:value="${keyword}" class="form-control"/>
-					&nbsp;&nbsp;
-					<button type="submit" class="btn btn-primary">
-						Chercher
-					</button>
-					&nbsp;&nbsp;
-					<button type="button" class="btn btn-danger" onclick="clearFilter()">
-						Annuler
-					</button>
-				</div>
-			</form>
 		</nav>		
 	</div>	
 		
@@ -200,7 +212,7 @@
 						<img th:src="@{${product.mainImagePath}}" class="img-fluid"/>
 					</td>
 					<td class="col-1">[[${product.createdTime}]]</td>
-					<td class="col-1">[[${product.updatedTime}]]</td>
+					<td class="col-1" th:text="${#dates.format(product.updatedTime, 'dd-MMM-yyyy  à  HH:mm:ss')}"></td>
 					<td class="col-1">[[${product.city}]]</td>
 					<td class="col-1">[[${product.category}]]</td>
 					<td class="col-1">[[${product.district}]]</td>
@@ -250,7 +262,7 @@
 	<div th:replace="fragments :: footer"></div>
 	
 </div>
-<script th:src="@{/js/common_list.js}"></script>
+<script th:src="@{/js/common_list.js}"></script>   
 <script type="text/javascript">
 	moduleURL = "[[@{/products}]]";
 
@@ -266,13 +278,13 @@
 			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
 		});
 		
-		$("#dropdownCategory").on("change", function() {
+/*  		$("#dropdownCategory").on("change", function() {
 			$("#searchForm").submit();
 		});
 		
 		$("#dropdownCity").on("change", function() {
 			$("#searchForm").submit();
-		});
+		});  */ 
 	});
 </script>
 </body>

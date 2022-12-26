@@ -1,9 +1,12 @@
 package com.immoben.city;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.immoben.paging.PagingAndSortingHelper;
@@ -60,4 +63,47 @@ public class CityService {
 		
 		return "OK";
 	}
+	
+
+
+	
+	public List<City> listCitiesUsedInForm() {
+		List<City> citiesUsedInForm = new ArrayList<>();
+		
+		Iterable<City> citiesInDB = repo.findRootCities(Sort.by("name").ascending());
+		
+		for (City city : citiesInDB) {
+			citiesUsedInForm.add(City.copyIdAndName(city));
+			
+//			Set<City> children = sortSubCities(city.getChildren());
+			
+//			for (City subCity : children) {
+//				String name = "--" + subCity.getName();
+//				citiesUsedInForm.add(City.copyIdAndName(subCity.getId(), name));
+//				
+//				listSubCitiesUsedInForm(citiesUsedInForm, subCity, 1);
+//			}
+
+		}		
+		
+		return citiesUsedInForm;
+	}
+	
+//	private void listSubCitiesUsedInForm(List<City> citiesUsedInForm, 
+//			 int subLevel) {
+//		int newSubLevel = subLevel + 1;
+//		Set<City> children = sortSubCities(parent.getChildren());
+//		
+//		for (City subCity : children) {
+//			String name = "";
+//			for (int i = 0; i < newSubLevel; i++) {				
+//				name += "--";
+//			}
+//			name += subCity.getName();
+//			
+//			citiesUsedInForm.add(City.copyIdAndName(subCity.getId(), name));
+//			
+//			listSubCitiesUsedInForm(citiesUsedInForm, subCity, newSubLevel);
+//		}		
+//	}	
 }

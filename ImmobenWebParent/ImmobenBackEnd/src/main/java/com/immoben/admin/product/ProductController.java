@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +17,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.immoben.admin.FileUploadUtil;
-import com.immoben.admin.city.CityService;
 import com.immoben.admin.category.CategoryService;
+import com.immoben.admin.city.CityService;
 import com.immoben.admin.paging.PagingAndSortingHelper;
 import com.immoben.admin.paging.PagingAndSortingParam;
 import com.immoben.admin.security.ImmobenCustomerDetails;
 import com.immoben.admin.security.ImmobenUserDetails;
-import com.immoben.common.entity.City;
 import com.immoben.common.entity.Category;
+import com.immoben.common.entity.City;
 import com.immoben.common.entity.product.Product;
 import com.immoben.common.exception.ProductNotFoundException;
 
 @Controller
 public class ProductController {
-	private String defaultRedirectURL = "redirect:/products/page/1?sortField=name&sortDir=asc&categoryId=0";
+	private String defaultRedirectURL = "redirect:/products/page/1?sortField=id&sortDir=desc&categoryId=0&cityId=0";
 	@Autowired private ProductService productService;
 	@Autowired private CityService cityService;
 	@Autowired private CategoryService categoryService;
@@ -38,22 +40,69 @@ public class ProductController {
 		return defaultRedirectURL;
 	}
 	
+//	@GetMapping("/products/page/{pageNum}")
+//	public String listByPage(
+//			@PagingAndSortingParam(listName = "listProducts", moduleURL = "/products") PagingAndSortingHelper helper,
+//			@PathVariable(name = "pageNum") int pageNum, Model model,
+//			Integer categoryId
+//			) {
+//		
+//		productService.listByPage(pageNum, helper, categoryId);
+//		
+//		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
+//		
+//		if (categoryId != null) model.addAttribute("categoryId", categoryId);
+//		model.addAttribute("listCategories", listCategories);
+//		
+//		return "products/products";		
+//	}
+	
+	
 	@GetMapping("/products/page/{pageNum}")
 	public String listByPage(
 			@PagingAndSortingParam(listName = "listProducts", moduleURL = "/products") PagingAndSortingHelper helper,
 			@PathVariable(name = "pageNum") int pageNum, Model model,
-			Integer categoryId
+			@Param("sortField") String sortField, 
+			@Param("sortDir") String sortDir,
+			@Param("keyword") String keyword,
+			@Param("categoryId") Integer categoryId,
+			@Param("cityId") Integer cityId
 			) {
+		Page<Product> page = productService.listByPage(pageNum, sortField, sortDir, keyword, categoryId, cityId);
+		List<Product> listProducts = page.getContent();
 		
-		productService.listByPage(pageNum, helper, categoryId);
+//		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
+		List<Category> listCategories = categoryService.listNoChildrenCategories();
 		
-		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
+		 List<City> listCities = cityService.listAll();
 		
-		if (categoryId != null) model.addAttribute("categoryId", categoryId);
+		long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
+		long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
+		if (endCount > page.getTotalElements()) {
+			endCount = page.getTotalElements();
+		}
+		
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		
+		if (categoryId != null) model.addAttribute("categoryId", categoryId); 
+		if (cityId != null) model.addAttribute("cityId", cityId); 
+			
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", reverseSortDir);
+		model.addAttribute("keyword", keyword);		
+		model.addAttribute("listProducts", listProducts);
 		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("listCities", listCities);		
 		
 		return "products/products";		
 	}
+	
 	
 	@GetMapping("/products/new")
 	public String newProduct(Model model) {

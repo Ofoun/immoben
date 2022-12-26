@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.immoben.admin.paging.PagingAndSortingHelper;
@@ -26,29 +28,92 @@ public class ProductService {
 		return (List<Product>) repo.findAll();
 	}
 	
-	public void listByPage(int pageNum, PagingAndSortingHelper helper, Integer categoryId) {
-		Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
-		String keyword = helper.getKeyword();
+//	public void listByPage(int pageNum, PagingAndSortingHelper helper, Integer categoryId) {
+//		Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
+//		String keyword = helper.getKeyword();
+//		Page<Product> page = null;
+//		
+//		if (keyword != null && !keyword.isEmpty()) {
+//			if (categoryId != null && categoryId > 0) {
+//				String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+//				page = repo.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
+//			} else {
+//				page = repo.findAll(keyword, pageable);
+//			}
+//		} else {
+//			if (categoryId != null && categoryId > 0) {
+//				String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+//				page = repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
+//			} else {		
+//				page = repo.findAll(pageable);
+//			}
+//		}
+//		
+//		helper.updateModelAttributes(pageNum, page);
+//	}	
+	
+	
+	
+
+	
+	public Page<Product> listByPage(int pageNum, String sortField, String sortDir, 
+			String keyword, Integer categoryId, Integer cityId) {
+		Sort sort = Sort.by(sortField);
 		Page<Product> page = null;
 		
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+				
+		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+
+
 		if (keyword != null && !keyword.isEmpty()) {
 			if (categoryId != null && categoryId > 0) {
-				String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
-				page = repo.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
+				String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";				
+				
+				if (cityId != null && cityId > 0) {
+					String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+					
+					page = repo.searchInCategoryAndCity( keyword, categoryIdMatch, cityIdMatch,pageable);
+					
+					} else {
+						page = repo.searchInCategory( keyword, categoryIdMatch, pageable);
+					}
+				} else {
+										
+					if (cityId != null && cityId > 0) {
+						String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+						
+						page = repo.searchInCity(keyword, cityIdMatch, pageable);
+						
+					} else {
+						page = repo.findAll(keyword, pageable);
+					}					
+				}								
 			} else {
-				page = repo.findAll(keyword, pageable);
-			}
-		} else {
-			if (categoryId != null && categoryId > 0) {
-				String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
-				page = repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
-			} else {		
-				page = repo.findAll(pageable);
-			}
-		}
+				if (categoryId != null && categoryId > 0) {
+					String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+					
+					if (cityId != null && cityId > 0) {
+						String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+						
+						page = repo.findAllInCategoryAndCity(categoryIdMatch, cityIdMatch, pageable);
+						} else {
+							page = repo.findAllInCategory(categoryIdMatch,pageable);
+							}
+					} else {
+						if (cityId != null && cityId > 0) {
+							String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+							
+							page = repo.findAllInCity(cityIdMatch, pageable);
+						} else {
+							page = repo.findAll(pageable);						
+						}
+					}
+				}
 		
-		helper.updateModelAttributes(pageNum, page);
+		return repo.findAll(pageable);		
 	}	
+	
 	
 	public void searchProducts(int pageNum, PagingAndSortingHelper helper) {
 		Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);

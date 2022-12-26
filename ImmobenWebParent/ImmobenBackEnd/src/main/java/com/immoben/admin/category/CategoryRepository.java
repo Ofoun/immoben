@@ -30,4 +30,15 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 	@Query("UPDATE Category c SET c.enabled = ?2 WHERE c.id = ?1")
 	@Modifying
 	public void updateEnabledStatus(Integer id, boolean enabled);	
+	
+	/*-----------------------------------------------*/
+	
+
+	@Query("SELECT c FROM Category c WHERE c.enabled = true ORDER BY c.name ASC")
+	public List<Category> findAllEnabled();
+	
+	@Query("SELECT c FROM Category c WHERE c.enabled = true AND c.alias = ?1")
+	public Category findByAliasEnabled(String alias);
+	
+	/*-------------------------------------------------*/
 }

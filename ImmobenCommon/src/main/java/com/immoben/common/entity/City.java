@@ -58,6 +58,39 @@ public class City extends IdBasedEntity{
 	public String toString() {
 		return this.name;
 	}
+	
+
+
+	public static City copyIdAndName(City city) {
+		City copyCity = new City();
+		copyCity.setId(city.getId());
+		copyCity.setName(city.getName());
+		
+		return copyCity;
+	}
+
+	public static City copyIdAndName(Integer id, String name) {
+		City copyCity = new City();
+		copyCity.setId(id);
+		copyCity.setName(name);
+		
+		return copyCity;
+	}
+	
+	public static City copyFull(City city) {
+		City copyCity = new City();
+		copyCity.setId(city.getId());
+		copyCity.setName(city.getName());
+		
+		return copyCity;		
+	}
+	
+	public static City copyFull(City city, String name) {
+		City copyCity = City.copyFull(city);
+		copyCity.setName(name);
+		
+		return copyCity;
+	}
 
 	
 

@@ -23,8 +23,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 521818357723-ivd8ftf0cmuk802r0h5nnddo58atqss6.apps.googleusercontent.com
-            client-secret: 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
+            client-id: 107057511203-on3fohqtpbsa5krusqpsvgaa8jngv888.apps.googleusercontent.com
+            client-secret: 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
             scope:
             - email
             - profile
@@ -36,13 +36,12 @@ spring:
             - public_profile
               mail:    host: smtp.gmail.com
     port: 587
-    username: immoben@gmail.com
-    password: zcadghnkrqkkyhnn
+    username: immobenbenin@gmail.com
+    password: ifoqoqzwqntifqch
     properties:      mail:        smtp:
           auth: true          starttls:            enable: true
             required: true
       
-      
     
     
   

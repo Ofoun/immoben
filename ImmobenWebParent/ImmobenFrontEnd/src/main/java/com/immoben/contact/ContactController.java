@@ -56,9 +56,8 @@ public class ContactController {
 		mailContent += "<p><b>Contenu:</b><br/> " + content +  "</p><br/><br/><br/><br/>";
 		mailContent += "<hr><img src='cid:logoImage' />";
 		
-		helper.setFrom("immoben@gmail.com", "MANGUEVIE CONTACT");
+		helper.setFrom("immoben@gmail.com", "IMMOBEN CONTACT");
 		helper.setTo("info@immoben.fr");
-//		helper.setTo("erickagossou11@gmail.com");
 		helper.setSubject(mailSubject);
 		helper.setText(mailContent, true);
 		

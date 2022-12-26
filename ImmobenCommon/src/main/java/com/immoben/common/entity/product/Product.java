@@ -431,6 +431,13 @@ public class Product extends IdBasedEntity {
 	}
 	
 	@Transient
+	public void setShortName() {
+		this.getShortName();
+	}
+	
+	
+	
+	@Transient
 	public float getDiscountPrice() {
 		if (discountPercent > 0) {
 			return price * ((100 - discountPercent) / 100);
