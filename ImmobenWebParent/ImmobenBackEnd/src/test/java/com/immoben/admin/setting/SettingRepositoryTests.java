@@ -23,11 +23,12 @@ public class SettingRepositoryTests {
 	
 	@Test
 	public void testCreateGeneralSettings() {
+		Setting iconLogo = new Setting("ICON_LOGO", "ImmobenIcon.png", SettingCategory.GENERAL);
 		Setting siteName = new Setting("SITE_NAME", "Immoben", SettingCategory.GENERAL);
 		Setting siteLogo = new Setting("SITE_LOGO", "Immoben.png", SettingCategory.GENERAL);
 		Setting copyright = new Setting("COPYRIGHT", "Immoben Control Panel - Copyright ©2022 Immoben Ltd.", SettingCategory.GENERAL);
 		
-		repo.saveAll(List.of(siteName, siteLogo, copyright));
+		repo.saveAll(List.of(iconLogo, siteName, siteLogo, copyright));
 		
 		Iterable<Setting> iterable = repo.findAll();
 		

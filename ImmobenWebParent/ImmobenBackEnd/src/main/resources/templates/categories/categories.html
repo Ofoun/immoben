@@ -51,7 +51,7 @@
 						<td class="col-1 text-center">
 							<div th:replace="fragments :: status(${category.enabled}, 'catégorie', '/categories/' + ${category.id})" ></div>		
 						</td>					
-						<td class="col-1 text-center p-2" style="white-space: nowrap">
+						<td class="col-1 text-center p-2" style="white-space: nowrap" sec:authorize="hasAnyAuthority('Admin')">
 							<div th:replace="fragments :: edit('category', '/categories/edit/' + ${category.id})" ></div>
 							&nbsp;&nbsp;
 							<div th:replace="fragments :: delete('category', ${category.id}, '/categories/delete/' + ${category.id}, ${!category.hasChildren})" ></div>
@@ -68,11 +68,12 @@
 					<img th:if="${category.image != null}" class="img-fluid-mobile" th:src="@{${category.imagePath}}" />	
 				</div>
 				<div class="col-7 m-1">
+				    <div><b>ID: </b>[[${category.id}]]</div>
 					<div><b>Catégorie: </b>[[${category.name}]]</div>
 					<div><b>Alias: </b>[[${category.alias}]]</div>
 					<div><b>Status: </b>[[${category.enabled}]]</div>
 				</div>
-				<div class="col-1 text-right p-2">								
+				<div class="col-1 text-right p-2" sec:authorize="hasAnyAuthority('Admin')">								
 					<div th:replace="fragments :: edit('category', '/categories/edit/' + ${category.id})" ></div>&nbsp;
 					<div th:replace="fragments :: delete('category', ${category.id}, '/categories/delete/' + ${category.id}, ${!category.hasChildren})" ></div>					
 				</div>

@@ -20,10 +20,6 @@
 				<a th:href="@{/products/new}"> Mettre une nouvelle annonce en ligne</a>
 			</th:block>
 		</h4>
-						
-		<div th:if="${message != null}" class="alert alert-success text-center">
-			[[${message}]]
-		</div>
 	</div>
 	
         <div th:replace="fragments :: search_form_and_message" ></div>  
@@ -31,11 +27,6 @@
 	
 	<div>
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
-        
-        <div th:if="${message != null}" class="alert alert-success text-center">
-            [[${message}]]
-        </div>
-            
             <form th:action="@{${moduleURL} + '/page/1'}" class="form-inline text-white m-3" id="searchForm">
         
                 <input type="hidden" name="sortField" th:value="${sortField}" />
@@ -141,7 +132,7 @@
 	</div>	
 		
 	
-	<!-- <div class="full-details mb-5"> -->
+	<div class="full-details mb-5">
 		<table class="table table-bordered table-striped table-hover table-responsive-xxl">
 			<thead class="thead-dark">
 				<tr>
@@ -244,7 +235,74 @@
 				</tr>
 			</tbody>
 		</table>
-	<!-- </div> -->
+	</div>
+	
+	
+	
+        
+    
+    <div class="less-details mb-5">
+        <div th:each="product : ${listProducts}">
+	        <div class="table table-bordered table-striped table-hover table-responsive-xxl">
+		         <small>
+			         <div class="row" >
+			         
+		               <div class="col-4 ml-1">
+		                   <div class="row-1"><b>ID: </b>[[${product.id}]]</div>
+		                   <div class="row-1"><img th:src="@{${product.mainImagePath}}" class="img-fluid-mobile"/></div>
+		                   <div class="row-1"><b>Téléphone: </b></div>
+		                   <small class="row-1">[[${product.phoneNumber}]]</small>	                   
+	                       <div class="row-1"><b>Propriétaire:</b>&nbsp;</div>  
+	                       <div class="row-1" th:field= "*{customer}" th:href="@{/account}" id="customer"
+	                        sec:authentication="principal.fullName" value="principal.fullName">
+	                        </div> 
+		               </div>
+		               
+		               <div class="col-6">
+		                   <div class="row"><b>Ville:</b>&nbsp; [[${product.city}]]</div>
+		                   <div class="row"><b>Catégorie:</b>&nbsp; [[${product.category}]]</div>
+		                   <div class="row"><b>Quartier:</b>&nbsp; [[${product.district}]]</div>
+		                   <div class="row"><b>Salon:</b>&nbsp; [[${product.lounge}]]</div>
+		                   <div class="row"><b>Chambre:</b>&nbsp; [[${product.room}]]</div>
+		                   <div class="row"><b>Cuisine:</b>&nbsp; [[${product.kitchen}]]</div>
+		                   <div class="row"><b>Douche:</b>&nbsp; [[${product.shower}]]</div>
+		                   <div class="row"><b>Toilette:</b>&nbsp; [[${product.toilet}]]</div>
+	                       <div class="row"><b>Superficie:</b>&nbsp; [[${product.area}]]</div>
+	                       <div class="row"><b>Montant:</b>&nbsp; [[${product.price}]]</div>            
+		               </div>                
+		                                 
+	                   <div class="col-1 text-center p-2"> 
+	                   
+	                        <div class="pb-4">
+			                    <div>                     
+			                       <a class="fas fa-file-alt fa-2x icon-blue link-detail"
+			                           th:href="@{'/products/detail/' + ${product.id}}"
+			                           title="Voir les détails de l'annonce"
+			                           ></a> 
+			                    </div>
+	                       </div>
+	                       
+		                   <div class="pb-4">
+		                        <div sec:authorize="hasAnyAuthority('Admin')" th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})" ></div>
+		                   </div>
+		                   
+		                   <div class="pb-4">
+		                        <div sec:authorize="hasAnyAuthority('Admin')" th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" ></div>
+		                   </div>
+		                   
+		                   <div>
+		                        <div sec:authorize="hasAnyAuthority('Admin')" th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" ></div>
+		                   </div>                       
+	                   </div>
+	                   
+	                </div>   
+	            </small> 
+	        </div>
+	     </div>   
+    </div>
+	
+	
+	
 		
 	<div th:replace="modal_fragments :: confirm_modal" ></div>
 	

@@ -84,6 +84,7 @@
 				<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" class="img-fluid-mobile" />	
 			</div>
 			<div class="col-7 m-1">
+                <div><b>ID: </b>[[${user.id}]]</div>
 				<div><b>Nom: </b>[[${user.fullName}]]</div>
 				<div><b>Role: </b>[[${user.roles}]]</div>
 			</div>
