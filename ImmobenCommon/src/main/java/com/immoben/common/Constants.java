@@ -12,9 +12,9 @@ public class Constants {
 	}
 	
 	
-//	public static void main(String[] args) {
-//		System.out.println("S3_BASE_URI: " + S3_BASE_URI);
-//	}
+	public static void main(String[] args) {
+		System.out.println("S3_BASE_URI: " + S3_BASE_URI);
+	}
 
 
 }
