@@ -29,7 +29,7 @@ import com.immoben.product.ProductService;
 public class MainController {
 	public static final int PRODUCTS_PER_PAGE = 20;
 	public static final int SEARCH_RESULTS_PER_PAGE = 20;
-	private String defaultRedirectURL = "redirect:/product/page/1?sortField=id&sortDir=desc&categoryId=0&cityId=0&keyword= ";
+	private String defaultRedirectURL = "redirect:/product/page/1?sortField=id&sortDir=desc&categoryId=0&cityId=0&keyword=null ";
 
 
 	
