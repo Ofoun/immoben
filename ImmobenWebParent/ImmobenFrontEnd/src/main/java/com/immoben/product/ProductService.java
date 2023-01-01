@@ -17,8 +17,8 @@ import com.immoben.paging.PagingAndSortingHelper;
 
 @Service
 public class ProductService {
-	public static final int PRODUCTS_PER_PAGE = 20;
-	public static final int SEARCH_RESULTS_PER_PAGE = 20;
+	public static final int PRODUCTS_PER_PAGE = 10;
+	public static final int SEARCH_RESULTS_PER_PAGE = 10;
 	
 	@Autowired private ProductRepository repo;
 	
