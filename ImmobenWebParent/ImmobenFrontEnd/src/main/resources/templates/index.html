@@ -127,10 +127,11 @@
 					<div class="col-7">
 						<a th:href="@{'/p/' + ${product.id}}"
 							th:title="${product.name}"> <b>[[${product.shortName}]]</b><br> 
-							<small> Salon: [[${product.lounge}]], Chambre: [[${product.room}]], Douche:
+							Salon: [[${product.lounge}]], Chambre: [[${product.room}]], Douche:
 							[[${product.shower}]] , Toilette: [[${product.toilet}]], Cuisine:
 							[[${product.kitchen}]] , Superficie: [[${product.area}]] m2,
-							Montant: [[${product.price}]] FCFA </small></a>
+							Montant: [[${product.price}]] FCFA 
+						</a>
 					</div>
 
 					<div class="col-1 p-2 text-center">
