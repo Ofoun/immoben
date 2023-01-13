@@ -30,7 +30,7 @@
 
 		<div class="tablebody">
 			<div th:replace="navigation :: annonceArticleFirstPage2"></div>
-            <div th:replace="fragments :: search_nav_category_city_district"></div>
+    <!--         <div th:replace="fragments :: search_nav_category_city_district"></div> -->
 
 
 
@@ -167,7 +167,7 @@
 
 	<script th:src="@{/js/common_list.js}"></script>
 	<script type="text/javascript">
-		moduleURL = "[[@{/index}]]";
+		moduleURL = "[[@{/}]]";
 
 		$(document).ready(
 				function() {

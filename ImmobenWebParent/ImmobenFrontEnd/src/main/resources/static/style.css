@@ -213,6 +213,22 @@ a.navbar-city {
 div.row a.nav-link:hover {
 	color:#804040; 
 }
+
+.imgBox {
+	border: 2px solid #f9f9f9;
+}
+
+.imgBox:hover
+{
+  -moz-box-shadow: 0 0 10px #ccc;
+  -webkit-box-shadow: 0 0 10px #ccc;
+  box-shadow:  0 0 10px 5px rgba(0,0,0,0.6);
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border-radius: 5px;
+}
+
+
 /* ---------------------- */
 
 
@@ -380,7 +396,7 @@ a.navbar-city {
 	padding: 0 5px;
 	font-size: 2rem;
 	text-align: left;
-	animation: defilement 500s infinite linear; 
+	animation: defilement 1000s infinite linear; 
 	scrollbar-width: auto;
 }
 
@@ -390,7 +406,7 @@ a.navbar-city {
 	padding: 10px 5px;
 	font-size: 1rem;
 	text-align: left;
-	animation: defilement 30s infinite linear; 
+	animation: defilement 50s infinite linear; 
 	white-space: nowrap; 
 }
 .message:after, .message_top:after {

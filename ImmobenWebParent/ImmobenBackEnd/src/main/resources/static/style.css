@@ -69,6 +69,22 @@ img.img-fluid-small {
   height: 40px;
 }
 
+img.img-fluid-frontEnd {
+  border: 1px solid #646464;
+  border-radius: 4px;
+  width: 90px;
+  height: 65px;
+  margin-left: 0;
+}
+
+img.img-fluid-frontEnd-small {
+  border: 1px solid #646464;
+  border-radius: 4px;
+  width: 60px;
+  height: 45px;
+  margin-left: 0;
+}
+
 nav.navbar {  
 	padding: 0.1rem 0.5rem;
     background-color: #d7dfe8!important;

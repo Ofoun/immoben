@@ -33,7 +33,7 @@ public class Customer extends IdBasedEntity {
 	@Column(name = "last_name", nullable = false, length = 45)
 	private String lastName;
 	
-	@Column(name = "phone_number", nullable = false, length = 45)
+	@Column(name = "phone_number", nullable = false, length = 128)
 	private String phoneNumber;
 	
 	@Column(name = "address_line_1",nullable = false, length = 64)

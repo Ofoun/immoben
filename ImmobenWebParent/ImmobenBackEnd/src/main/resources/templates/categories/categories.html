@@ -43,8 +43,7 @@
 					<tr th:each="category : ${listCategories}">
 						<td class="col-1">[[${category.id}]]</td>
 						<td class="col-1">
-							<img th:src="@{${category.imagePath}}" style="width: 100px" class="img-fluid"/>
-				<!-- 			<div th:replace="categoryFragments :: category_image" ></div> -->
+							<img th:src="@{${category.imagePath}}" style="width: 100px" class="img-fluid-frontEnd"/>
 						</td>
 						<td class="col-4">[[${category.name}]]</td>
 						<td class="col-4">[[${category.alias}]]</td>				

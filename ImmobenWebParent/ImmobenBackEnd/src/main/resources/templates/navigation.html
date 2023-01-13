@@ -75,7 +75,7 @@
 					</li>
 				</th:block>
 				
-				<th:block sec:authorize="hasAnyAuthority('Editor')">
+				<!-- <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Shipper', 'Assistant', 'Editor')"> -->
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown"
 							th:href="@{/products/new}">Faire une nouvelle annonce</a>
@@ -85,10 +85,10 @@
 					</li>	
 					&nbsp;&nbsp;
 					<li class="nav-item">
-						<a class="nav-link"  th:href="@{https://immoben.fr}">Retour à la page d'accueil</a>
+						<a class="nav-link"  th:href="@{http://immoben.fr}">Retour à la page d'accueil</a>
 					</li>	
 					&nbsp;&nbsp;
-				</th:block>
+				<!-- </th:block> -->
 				
 				<th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'shipper')">
 					<li class="nav-item">
@@ -124,14 +124,14 @@
 				
 				
 					
-					<li class="nav-item dropdown"> 
+<!-- 					<li class="nav-item dropdown"> 
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown"
 							th:href="@{/rentArticle}">&nbsp;&nbsp; Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" th:href="@{/rentArticle/new}">Faire une annonce de location</a>
 						</div> 					
 					</li>
-				
+				 -->
 				<li class="nav-item dropdown" sec:authorize="hasAuthority('Admin')">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" 
 						th:href="@{/settings}">Paramètres</a>

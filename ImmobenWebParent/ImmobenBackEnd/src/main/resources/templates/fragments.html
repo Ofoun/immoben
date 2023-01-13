@@ -46,7 +46,7 @@
 	<div th:fragment="user_photos" th:remove="tag">
 		<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
 		<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
-			style="width: 100px" />	
+			class="img-fluid-frontEnd" />	
 	</div>
 	
 	<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
@@ -131,6 +131,8 @@
 		  </form>
 		</nav>
 	</div>
+	
+	
 	
 	<div th:fragment="format_currency(amount)" th:remove="tag">
 		<span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
