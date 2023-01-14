@@ -43,8 +43,8 @@
 	<div class="text-center m-1" th:if="${totalItems > 0}" style="padding-top:150px">
 		<span>Affichage [[${entityName}]] # [[${startCount}]] à [[${endCount}]] des [[${totalItems}]]</span>
 	</div>
-	<div class="text-center m-1" th:unless="${totalItems > 0}">
-		<span>Aucun(e) [[${entityName}]] n'a été trouvé(e).</span>
+	<div class="text-center m-1 pt-5" th:unless="${totalItems > 0}">
+		<span>Aucune [[${entityName}]] n'a été trouvée.</span>
 	</div>
 	
 	<div th:if="${totalPages > 1}">

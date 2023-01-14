@@ -30,10 +30,10 @@
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-						<th style="min-width: 70px;">ID</th>
+						<th style="min-width: 70px;" th:replace="fragments :: column_link('id', 'Id', 'none')" ></th>
 						<th>Image de la catégorie</th>						
 						<th th:replace="fragments :: column_link('name', 'Nom de la catégorie', 'none')" ></th>
-						<th>Alias</th>
+						<th th:replace="fragments :: column_link('alias', 'Alias', 'none')" ></th>
 						<th>Status</th>		
 						<th style="min-width: 70px;"></th>
 					</tr>								
