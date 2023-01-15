@@ -42,7 +42,7 @@
 			<div class="full-details mb-5">
 				<table
 					class="table table-bordered table-striped table-hover table-responsive-xl">
-					<thead class="thead-dark">
+                    <thead class="thead-dark">
 						<tr>
 							<th class="col-1 hideable-column" style="width: 10px" th:replace="fragments :: column_link('id', 'ID', 'none')"/>
 
@@ -121,6 +121,8 @@
 						<a th:href="@{'/p/' + ${product.id}}"
 							th:title="${product.name}"> 
 							<img th:src="@{${product.mainImagePath}}" class="img-fluid-mobile" />
+                            <b>[[${product.district}]]</b>
+							
 						</a>
 					</div>
 

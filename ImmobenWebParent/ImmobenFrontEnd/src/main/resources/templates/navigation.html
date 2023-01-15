@@ -140,14 +140,35 @@
 	</div>
 </div>
 
-<div th:fragment="annonceArticleFirstPage2" id="annonceArticleFirstPage2">	
-	<th:block sec:authorize="!isAuthenticated()">
-		<div class= "annonceArticleFirstPage2 text-center">
-       		<a class="nav-link" th:href="@{/register}">Cliquez ici pour faire une annonce</a>
-		</div>
-	</th:block>
+<div th:fragment="annonceArticleFirstPage2" id="annonceArticleFirstPage2">
+    <div class="lessAnnonceField">	
+		<th:block sec:authorize="!isAuthenticated()">
+			<div class= "annonceArticleFirstPage2 text-center">
+	       		<a class="nav-link" th:href="@{/register}">Cliquez ici pour faire une annonce</a>
+			</div>
+		</th:block>
+	</div>
+	
+	<div class="lessSearchNav mt-2">
+      <form class="form-inline" th:action="@{/search}" method="get">
+	    <div class= "row">
+<!-- 	       <div class="col-2">
+	           <small>Recherche:</small>
+	       </div> -->
+	       
+	       <div class="col-9">
+		      <input type="search" name="keyword" class="form-control mr-sm-2 "
+		          th:value="${keyword}" 
+		          placeholder="Écrivez ici le quartier" required />
+            </div>
+            
+            <div class="col-3">
+		      <input type="submit" value="Chercher" class="btn btn-outline-success" />
+            </div>
+        </div>
+	  </form>
+	</div>
 </div>
-
 
 
 
