@@ -142,11 +142,11 @@
 
 <div th:fragment="annonceArticleFirstPage2" id="annonceArticleFirstPage2">
     <div class="lessAnnonceField">	
-		<!-- <th:block sec:authorize="!isAuthenticated()"> -->
+		<th:block sec:authorize="!isAuthenticated()">
 			<div class= "annonceArticleFirstPage2 text-center">
 	       		<a class="nav-link" th:href="@{/register}">Cliquez ici pour faire une annonce</a>
 			</div>
-		<!-- </th:block> -->
+		</th:block>
 	</div>
 	
 	<div class="lessSearchNav mt-2">
