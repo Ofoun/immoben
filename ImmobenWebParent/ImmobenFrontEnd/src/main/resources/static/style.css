@@ -197,6 +197,14 @@ a.navbar-city {
     border-radius: 4px;
 }
 
+
+.lessSearchNav div.col-8,
+.lessSearchNav div.col-3 {
+/* 	padding-right: 15px !important; 
+    padding-left: 15px !important; */
+}
+
+
 .footer {
    position: fixed;
    left: 0;
