@@ -198,11 +198,7 @@ a.navbar-city {
 }
 
 
-.lessSearchNav div.col-8,
-.lessSearchNav div.col-3 {
-/* 	padding-right: 15px !important; 
-    padding-left: 15px !important; */
-}
+
 
 
 .footer {
@@ -235,10 +231,17 @@ div.row a.nav-link:hover {
 	color:#804040; 
 }
 
+html > body > div > div > div > table > tbody > tr > td > a > b { 
+	color: black;
+}
+
+html > body > div > div > div > div > div > a > b,
+html > body > div > div > div > div > div > a.fas {
+	color: black;
+}
+
 .imgBoxSearch {
 	border: 2px solid #f9f9f9;
-	 width: 150 px;
-	 height: 150 px; 
 }
 
 .imgBox:hover
