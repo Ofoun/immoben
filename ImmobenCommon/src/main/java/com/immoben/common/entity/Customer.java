@@ -30,16 +30,16 @@ public class Customer extends IdBasedEntity {
 	@Column(name = "first_name", nullable = false, length = 45)
 	private String firstName;
 	
-	@Column(name = "last_name", nullable = false, length = 45)
+	@Column(name = "last_name", nullable = true, length = 45)
 	private String lastName;
 	
-	@Column(name = "phone_number", nullable = false, length = 128)
+	@Column(name = "phone_number", nullable = false, length = 512)
 	private String phoneNumber;
 	
-	@Column(name = "address_line_1",nullable = false, length = 64)
+	@Column(name = "address_line_1",nullable = true, length = 64)
 	private String addressLine1;
 	
-	@Column(name = "address_line_2", length = 64)
+	@Column(name = "address_line_2",nullable = true, length = 64)
 	private String addressLine2;
 	
 	@Column(nullable = false, length = 45)

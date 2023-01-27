@@ -32,7 +32,7 @@
 			<label class="col-sm-4 col-form-label">Nom de famille:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{lastName}" class="form-control"
-					required="required" maxlength="45" minlength="2" />
+					placeholder="Pas obligatoire !!!"  maxlength="45" minlength="2" />
 			</div>
 		</div>
 				
@@ -68,7 +68,7 @@
 			<label class="col-sm-4 col-form-label">Téléphone:</label>
 			<div class="col-sm-8">
 				<input type="tel" th:field="*{phoneNumber}" class="form-control"
-					required="required" maxlength="128" minlength="8" 
+					required="required" maxlength="512" minlength="8" 
 					/>
 			</div>
 		</div>
@@ -77,7 +77,7 @@
 			<label class="col-sm-4 col-form-label">Adresse:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{addressLine1}" class="form-control"
-					required="required" maxlength="64" minlength="3" />
+					placeholder="Pas obligatoire !!!" maxlength="64" minlength="3" />
 			</div>
 		</div>
 
@@ -85,7 +85,7 @@
 			<label class="col-sm-4 col-form-label">Nom de votre propriétaire:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{addressLine2}" class="form-control"
-					maxlength="64" />
+					placeholder="Pas obligatoire !!!" maxlength="64" />
 			</div>
 		</div>
 
