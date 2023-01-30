@@ -59,10 +59,16 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 //	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
 //	public Page<Product> search(String keyword, Pageable pageable);
 	
-	@Query(value = "SELECT * FROM Products WHERE enabled = true AND "
-			+ "MATCH(alias, short_description, full_description, district) AGAINST (?1)", 
-			nativeQuery = true)
-	public Page<Product> search(String keyword, Pageable pageable);
+//	@Query(value = "SELECT * FROM Products WHERE enabled = true AND "
+//			+ "MATCH(alias, short_description, full_description, city) AGAINST (?1)", 
+//			nativeQuery = true)
+//	public Page<Product> search(String keyword, Pageable pageable);
+	 
+
+		@Query(value = "SELECT * FROM Products WHERE enabled = true AND "
+		+ "MATCH(alias, short_description, full_description, district) AGAINST (?1)", 
+		nativeQuery = true)
+		public Page<Product> search(String keyword, Pageable pageable);
 
 	
 	/*----------------------------------------------------------*/

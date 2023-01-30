@@ -120,6 +120,9 @@ public class ProductController {
 	public String searchByPage(String keyword,
 			@PathVariable("pageNum") int pageNum,
 			Model model) {
+
+
+		
 		Page<Product> pageProducts = productService.search(keyword, pageNum);
 		List<Product> listResult = pageProducts.getContent();
 		
