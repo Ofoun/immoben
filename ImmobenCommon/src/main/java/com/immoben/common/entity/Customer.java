@@ -241,6 +241,7 @@ public class Customer extends IdBasedEntity {
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
+	
 
 	public AuthenticationType getAuthenticationType() {
 		return authenticationType;
@@ -293,6 +294,8 @@ public class Customer extends IdBasedEntity {
 		
 		return address;
 	}
+
+
 
 	
 }

@@ -88,6 +88,9 @@ public class CustomerService {
 		customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());
 		customerInForm.setResetPasswordToken(customerInDB.getResetPasswordToken());
 		
+		
+
+		
 		customerRepo.save(customerInForm);
 	}
 	

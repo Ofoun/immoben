@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.immoben.admin.paging.PagingAndSortingHelper;
+import com.immoben.common.entity.Customer;
 import com.immoben.common.entity.product.Product;
 import com.immoben.common.exception.ProductNotFoundException;
 
@@ -56,6 +57,65 @@ public class ProductService {
 	
 
 	
+//	public Page<Product> listByPage(int pageNum, String sortField, String sortDir, 
+//			String keyword, Integer categoryId, Integer cityId) {
+//		Sort sort = Sort.by(sortField);
+//		Page<Product> page = null;
+//		
+//		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+//				
+//		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+//
+//
+//		if (keyword != null && !keyword.isEmpty()) {
+//			if (categoryId != null && categoryId > 0) {
+//				String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";				
+//				
+//				if (cityId != null && cityId > 0) {
+//					String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+//					
+//					page = repo.searchInCategoryAndCity( keyword, categoryIdMatch, cityIdMatch,pageable);
+//					
+//					} else {
+//						page = repo.searchInCategory( keyword, categoryIdMatch, pageable);
+//					}
+//				} else {
+//										
+//					if (cityId != null && cityId > 0) {
+//						String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+//						
+//						page = repo.searchInCity(keyword, cityIdMatch, pageable);
+//						
+//					} else {
+//						page = repo.findAll(keyword, pageable);
+//					}					
+//				}								
+//			} else {
+//				if (categoryId != null && categoryId > 0) {
+//					String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+//					
+//					if (cityId != null && cityId > 0) {
+//						String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+//						
+//						page = repo.findAllInCategoryAndCity(categoryIdMatch, cityIdMatch, pageable);
+//						} else {
+//							page = repo.findAllInCategory(categoryIdMatch,pageable);
+//							}
+//					} else {
+//						if (cityId != null && cityId > 0) {
+//							String cityIdMatch = "-" + String.valueOf(cityId) + "-";
+//							
+//							page = repo.findAllInCity(cityIdMatch, pageable);
+//						} else {
+//							page = repo.findAll(pageable);						
+//						}
+//					}
+//				}
+//		
+//		return repo.findAll(pageable);		
+//	}	
+//	
+	
 	public Page<Product> listByPage(int pageNum, String sortField, String sortDir, 
 			String keyword, Integer categoryId, Integer cityId) {
 		Sort sort = Sort.by(sortField);
@@ -64,6 +124,7 @@ public class ProductService {
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 				
 		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+		
 
 
 		if (keyword != null && !keyword.isEmpty()) {
@@ -122,9 +183,14 @@ public class ProductService {
 		helper.updateModelAttributes(pageNum, page);
 	}
 	
+	
 	public Product save(Product product) {
+		
+		
 		if (product.getId() == null) {
 			product.setCreatedTime(new Date());
+			
+			product.setCustomer(product.getCustomer());
 		}
 		
 		if (product.getAlias() == null || product.getAlias().isEmpty()) {
@@ -135,9 +201,13 @@ public class ProductService {
 		}
 		
 		product.setUpdatedTime(new Date());
+
+		product.setCustomer(product.getCustomer());
 		
 		return repo.save(product);
 	}
+	
+	
 	
 	public void saveProductPrice(Product productInForm) {
 		Product productInDB = repo.findById(productInForm.getId()).get();
@@ -182,4 +252,5 @@ public class ProductService {
 			throw new ProductNotFoundException("Aucun produit avec ID: " + id + " n'est trouvable.");
 		}
 	}
+
 }

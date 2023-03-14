@@ -119,7 +119,11 @@ public class Product extends IdBasedEntity {
 	public Product(String name) {
 		this.name = name;
 	}
-				
+	
+	public Product(Product product) {
+		this.customer = product.getCustomer();
+	}
+					
 	public Product(String name, String alias, String mainImage, String district, City city, Category category,
 			Long lounge, Long room, Long kitchen, Long shower, Long toilet, float area, float cost, float price,
 			String shortDescription, String fullDescription, Date createdTime, Date updatedTime, boolean enabled,

@@ -25,6 +25,7 @@ import com.immoben.admin.security.ImmobenCustomerDetails;
 import com.immoben.admin.security.ImmobenUserDetails;
 import com.immoben.common.entity.Category;
 import com.immoben.common.entity.City;
+import com.immoben.common.entity.Customer;
 import com.immoben.common.entity.product.Product;
 import com.immoben.common.exception.ProductNotFoundException;
 
@@ -75,6 +76,7 @@ public class ProductController {
 		List<Category> listCategories = categoryService.listNoChildrenCategories();
 		
 		 List<City> listCities = cityService.listAll();
+		 
 		
 		long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
 		long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
@@ -109,8 +111,11 @@ public class ProductController {
 		List<City> listCities = cityService.listAll();
 		
 		Product product = new Product();
+		Customer customer = product.getCustomer();
+		
 		product.setEnabled(true);
 		product.setInStock(true);
+		product.setCustomer(customer);
 		
 		model.addAttribute("product", product);
 		model.addAttribute("listCities", listCities);
@@ -168,6 +173,7 @@ public class ProductController {
 		ProductSaveHelper.setProductDetails(detailIDs, detailNames, detailValues, product);
 			
 		Product savedProduct = productService.save(product);
+		
 		
 		ProductSaveHelper.saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
 		
@@ -235,13 +241,14 @@ public class ProductController {
 //				}
 //			}
 			
-
+			
 			
 			model.addAttribute("isReadOnlyForSalesperson", isReadOnlyForSalesperson);
 			model.addAttribute("product", product);
 			model.addAttribute("listCities", listCities);
 			model.addAttribute("pageTitle", "Modifier cette annonce ( '"  + product.getShortName() +  "' avec ID: " + id + " )");
 			model.addAttribute("numberOfExistingExtraImages", numberOfExistingExtraImages);
+			model.addAttribute("product.getCustomer()", product.getCustomer());
 			
 			return "products/product_form";
 			

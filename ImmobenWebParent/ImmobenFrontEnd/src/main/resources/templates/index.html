@@ -30,7 +30,7 @@
 
 		<div class="tablebody">
 			<div th:replace="navigation :: annonceArticleFirstPage2"></div>
-    <!--         <div th:replace="fragments :: search_nav_category_city_district"></div> -->
+            <div th:replace="fragments :: search_nav_category_city_district"></div>
 
 
 
@@ -82,8 +82,8 @@
 									Salon: [[${product.lounge}]], Chambre: [[${product.room}]],
 									Douche: [[${product.shower}]] , Toilette:
 									[[${product.toilet}]], Cuisine: [[${product.kitchen}]] ,
-									Superficie: [[${product.area}]] m2, Montant:
-									[[${product.price}]] FCFA 
+									Superficie: [[${product.area}]] m2, 
+									Montant:<div th:replace="product/product_fragment :: price_fragment(${product.price})"></div>
 								</a>
 							</td>
 							

@@ -96,19 +96,21 @@
 					</td>
 					<td class="col-1">[[${product.createdTime}]]</td>
 					<td class="col-1" th:text="${#dates.format(product.updatedTime, 'dd-MMM-yyyy  à  HH:mm:ss')}"></td>
-					<td class="col-1">[[${product.city}]]</td>
+					<td class="col-1" th:utext="${product.city}"></td>
 					<td class="col-1">[[${product.category}]]</td>
 					<td class="col-1">[[${product.district}]]</td>
 					<td class="col-1">[[${product.lounge}]]</td>
 					<td class="col-1">[[${product.room}]]</td>
 					<td class="col-1">[[${product.kitchen}]]</td>
-					<td class="col-1">[[${product.shower}]]</td>
+					<td class="col-1" th:utext="${product.shower}"></td>
 					<td class="col-1">[[${product.toilet}]]</td>
 					<td class="col-1">[[${product.area}]]</td>
 					<td class="col-1">[[${product.price}]]</td>
 					<td class="col-1">[[${product.phoneNumber}]]</td>
-					<td class="col-1" th:field= "*{customer}" th:href="@{/account}" id="customer"
-					sec:authentication="principal.fullName" value="principal.fullName">[[${product.customer}]]</td>
+                    <td class="col-1" th:utext="${product.customer}"></td>
+                    
+<!-- 					<td class="col-1" th:field= "*{customer}" th:href="@{/account}" id="customer"
+					sec:authentication="principal.fullName" value="principal.fullName">[[${product.customer}]]</td> -->
 										
 					<td class="col-1 text-center p-2" style="white-space: nowrap">						
 						<a class="fas fa-file-alt fa-2x icon-blue link-detail"

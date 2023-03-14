@@ -79,14 +79,16 @@
 		<div class="form-group row">
 			<label class="col-sm-3 col-form-label">Frais:</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" th:value="${product.cost}" readonly />
+				<!-- <input type="text" class="form-control" th:value="${product.cost}" readonly /> -->
+                <input type="text" class="form-control" th:replace="product/product_fragment :: price_fragment(${product.cost})" readonly />
 			</div>
 		</div>
 		
 		<div class="form-group row">
 			<label class="col-sm-3 col-form-label">Prix:</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" th:value="${product.price}" readonly />
+			<!-- 	<input type="text" class="form-control" th:value="${product.price}" readonly /> -->
+			     <input type="text" class="form-control" th:replace="product/product_fragment :: price_fragment(${product.price})" readonly />	      
 			</div>
 		</div>
 		
